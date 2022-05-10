@@ -8,7 +8,7 @@ from app.auth.forms import LoginForm, SignupForm
 
 user = User()
 
-@auth.route('/register', methods=["GET", "POST"])
+@auth.route('/login', methods=["GET", "POST"])
 def login():
     """
     view function that displays on login page"""
