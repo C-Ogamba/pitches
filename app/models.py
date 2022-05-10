@@ -20,6 +20,8 @@ class User(UserMixin, db.Model):
     profile_pic_path = db.Column(db.String())
     # role_id = db.Column(db.Integer,db.ForeignKey('roles.id'))
     pitches = db.relationship('Pitches', backref='user', lazy="dynamic")
+    
+   
 
     @property
     def password(self):
@@ -36,9 +38,9 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return f'User {self.username}'
 
-class Pitch():
+class Pitch(db.Model):
 
-    __tablename__ = 'pitch'
+   
     pass_secure = db.Column(db.String(255))
 
 
