@@ -7,8 +7,8 @@ class LoginForm(FlaskForm):
     """
     Login form
     """
-    email = EmailField('Email',validators=[InputRequired()])
-    password = PasswordField('Password', validators=[InputRequired()])
+    email = StringField('Email',validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Remember Me')
 
 
@@ -16,11 +16,11 @@ class SignupForm(FlaskForm):
     """
     Signup form
     """
-    email = EmailField('Email',validators=[InputRequired()])
-    username = StringField('username',validators=[InputRequired()])
-    name = StringField('Name',validators=[InputRequired()])
-    password = PasswordField('Password', validators=[InputRequired()])
-    about = TextAreaField('About')
+    email = StringField('Email',validators=[DataRequired()])
+    username = StringField('username',validators=[DataRequired()])
+    name = StringField('Name',validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    about = StringField('About')
 
     def validate_email(self,data_field):
             if User.query.filter_by(email = data_field.data).first():
