@@ -12,8 +12,9 @@ def create_app(config_name):
 
     app = Flask(__name__)
 
-    # Creating the app configurations
-    app.config.from_object(config_options[config_name])
+    # Creating the app ct(config_options[config_name])
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['SECRET_KEY']='qwerty'
 
     # Initializing flask extensions
     bootstrap.init_app(app)

@@ -1,4 +1,6 @@
+from email.message import EmailMessage
 from flask import render_template, redirect, url_for, flash, request
+from flask_login import login_required, login_user, logout_user
 from . import auth
 from .. import db
 from app.models import User
@@ -35,7 +37,7 @@ def signup():
         db.session.add(user)
         db.session.commit()
 
-        mail_message("Welcome to Pitches","email/welcome_user",user.email,user=user)
+        EmailMessage("Welcome to Pitches","email/welcome_user",user.email,user=user)
         return redirect(request.args.get('next') or url_for('main.index'))
     title = "New Account"
     return render_template('signup.html', form=form, title=title)
