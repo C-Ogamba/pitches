@@ -14,8 +14,7 @@ def create_app(config_class= Config):
     app.config.from_object(config_class)
 
     # Creating the app ct(config_options[config_name])
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['SECRET_KEY']='qwerty'
+
 
     # Initializing flask extensions
     bootstrap.init_app(app)
@@ -31,4 +30,3 @@ def create_app(config_class= Config):
 
     return app
 
-    from app import views, errors
