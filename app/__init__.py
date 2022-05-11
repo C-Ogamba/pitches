@@ -1,4 +1,4 @@
-from flask import Flask, Config, render_template, request
+from flask import Flask
 from flask_bootstrap import Bootstrap
 from config import Config
 from flask_sqlalchemy import SQLAlchemy
@@ -6,7 +6,7 @@ from flask_migrate import Migrate
 
 bootstrap = Bootstrap()
 db = SQLAlchemy()
-# migrate = Migrate(app, db)
+migrate = Migrate()
 
 def create_app(config_class= Config):
 
@@ -20,7 +20,7 @@ def create_app(config_class= Config):
     # Initializing flask extensions
     bootstrap.init_app(app)
     db.init_app(app)
-    # migrate.init_app(app,db)
+    migrate.init_app(app,db)
 
     # Will add the views and forms
     from app.main import main as main_bp

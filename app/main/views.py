@@ -1,15 +1,16 @@
 from flask import render_template,url_for,flash, redirect
 from app.auth.forms import LoginForm,SignupForm
-from . import main
+from app.main import main
 from ..models import Pitch, User
 
-Pitch= [{
-    ''
-}]
 
 @main.route('/')
+@main.route('/index')
 def index():
-    return render_template('index.html')
+    """view function that displays homepage"""
+
+    title = 'Home'
+    return render_template('index.html', title=title)
 
 
 @main.route('/signup', methods=['GET','POST'])
