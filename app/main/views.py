@@ -1,6 +1,3 @@
-from crypt import methods
-import imp
-from traceback import format_list
 from flask import render_template,url_for,flash, redirect
 from app.auth.forms import LoginForm,SignupForm
 from . import main
@@ -12,7 +9,8 @@ Pitch= [{
 
 @main.route('/')
 def index():
-    return render_template('index.html', pitch=Pitch)
+    return render_template('index.html')
+
 
 @main.route('/signup', methods=['GET','POST'])
 def signup():
