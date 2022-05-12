@@ -44,6 +44,7 @@ class Pitch(db.Model):
 
     pitch_id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String(140))
+    votes = db.Column(db.String(255))
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
 
