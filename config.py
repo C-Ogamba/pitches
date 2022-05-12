@@ -9,7 +9,7 @@ class Config(object):
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL', '').replace(
         'postgres://', 'postgresql://') or\
         'sqlite:///' + os.path.join(basedir, 'app.db')
- 
+    
 
 
 class ProdConfig(Config):
