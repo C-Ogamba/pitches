@@ -3,10 +3,12 @@ from flask_bootstrap import Bootstrap
 from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_uploads import UploadSet, configure_uploads, IMAGES
 
 bootstrap = Bootstrap()
 db = SQLAlchemy()
 migrate = Migrate()
+photos = UploadSet('photos', IMAGES)
 
 def create_app(config_class= Config):
 
