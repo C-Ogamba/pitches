@@ -1,6 +1,7 @@
 from datetime import datetime
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
+from .import login_manager
 from . import db
 
 
@@ -60,7 +61,7 @@ class Comments(db.Model):
     opinion = db.Column(db.String(255))
     time_posted = db.Column(db.DateTime, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    pitch_id = db.Column(db.Integer, db.ForeignKey("pitches.id"))
+    pitch_id = db.Column(db.Integer, db.ForeignKey("pitches.pitch_id"))
 
     def create_comments(self):
         db.session.add(self)
@@ -81,7 +82,17 @@ class Category(db.Model):
     __tablename__='category'
 
     id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255))
+    description = db.Column(db.String(255))
 
+    def save_category(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_category(cls):
+        category = Category.query.all()
+        return category
 
 
     def __repr__(self):

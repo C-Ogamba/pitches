@@ -1,3 +1,4 @@
+from sre_parse import CATEGORIES
 from flask import render_template,url_for, redirect, abort, request
 from app.main import main
 from ..models import Pitch, User, Comments, Category, Votes
@@ -11,13 +12,13 @@ from .. import db,photos
 def index():
     """view function that displays homepage"""
 
-    categories = Category.get_category()
+    category = Category.get_category()
     main_pitch = Pitches.query.order_by('id').all()
     print(main_pitch)
 
     title = 'Home'
 
-    return render_template('index.html', title=title, Category=categories, main_pitch=Pitches)
+    return render_template('index.html', title=title, categories=category, main_pitch=Pitches)
 
 @main.route('/category/add_pitch/<int:id>', methods=['GET', 'POST'])
 @login_required
