@@ -44,7 +44,6 @@ class Pitch(db.Model):
 
     pitch_id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String(140))
-    votes = db.Column(db.String(255))
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
 
@@ -53,4 +52,43 @@ class Pitch(db.Model):
         Function to display user pitch
         '''
         return '<Pitch {}>'.format(self.body)
+
+class Comments(db.Model):
+    __tablename__='comments'
+
+    id = db.Column(db.Integer, primary_key=True)
+    opinion = db.Column(db.String(255))
+    time_posted = db.Column(db.DateTime, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    pitch_id = db.Column(db.Integer, db.ForeignKey("pitches.id"))
+
+    def __repr__(self):
+        '''
+        Function to display user comments
+        '''
+        return '<Comments {}>'.format(self.body)
+
+class Category(db.Model):
+    __tablename__='category'
+
+    id = db.Column(db.Integer, primary_key=True)
+
+
+
+    def __repr__(self):
+        '''
+        Function to display user comments
+        '''
+        return '<Category {}>'.format(self.body)
+
+class Votes(db.Model):
+    __tablename__='votes'
+
+    id = db.Column(db.Integer, primary_key=True)
+
+
+
+    
+
+
     
