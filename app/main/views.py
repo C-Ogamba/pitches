@@ -18,8 +18,9 @@ def index():
 
     return render_template('index.html', title=title, Category=categories, main_pitch=Pitches)
 
-@main.route('/profile')
-def profile():
+@main.route('/category/add_pitch/<int:id>', methods=['GET', 'POST'])
+@login_required
+def add_pitch():
 
 	return render_template('profile.html')
 
