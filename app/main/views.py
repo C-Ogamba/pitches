@@ -72,7 +72,7 @@ def view_pitch(id):
     comment = Comments.add_comments(id)
     count_likes = Votes.query.filter_by(pitches_id=id, vote=1).all()
     count_dislikes = Votes.query.filter_by(pitches_id=id, vote=2).all()
-    return render_template('view-pitch.html', pitches = pitches, comment = comment, count_likes=len(count_likes), count_dislikes=len(count_dislikes), category_id = id, categories=all_category)
+    return render_template('view-pitch.html', pitches = pitches, comment = comment, count_likes=len(count_likes), count_dislikes=len(count_dislikes), category_id = id)
 
 @main.route('/write_comment/<int:id>', methods=['GET', 'POST'])
 @login_required

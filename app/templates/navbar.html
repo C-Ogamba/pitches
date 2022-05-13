@@ -12,21 +12,18 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">DIY</a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link disabled" href="#">Disabled</a>
-                </li>
-                <!-- {% if current_user.is_authenticated %}
-                <li><a href=“{{url_for('main.profile',uname=current_user.username)}}“>Profile</a></li>
-                <li><a href=“{{url_for("main.new_pitch")}}“>Pitch</a></li>
-                  <li><a href=“{{url_for("auth.logout")}}“>Sign out</a></li>
-                  {% else %}
-                  <li><a href=“{{url_for("auth.login")}}“>Sign in</a></li>
-                  {%endif%}
-                 -->
+                </li> -->
+                              
             </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+            <ul class="nav navbar-nav navbar-right">
+                    {% if current_user.is_anonymous %}
+                    <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+                    {% else %}
+                    <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+                    {% endif %}
+                    <li><a href="{{ url_for('auth.signup' )}}">SignUp</a></li>
+            </ul>
         </div>
 </nav>

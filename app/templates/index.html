@@ -2,5 +2,27 @@
 
 
 {% block app_content %}
-<h1>Test</h1>
+<section id="latest-pitches" class="py-5 px-1 px-lg-3">
+    <div class="container-fluid mt-5">
+        <div class="section-title">
+            <h2 class="fw-bold text-center fs-5">
+               
+                <button class="btn btn-primary px-4 float-end" data-bs-toggle="modal"
+                    data-bs-target="#createPitchModal">Create Pitch</button>
+                
+            </h2>
+            <div class="pitches row mt-5 mx-0">
+                
+                <div class="col-xl-3 col-md-4 mb-3 col-sm-6">
+                   
+                </div>
+               
+                <p class="text-center pt-4">No pitches yet</p>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include 'create-pitch.html' %}
 {% endblock%}

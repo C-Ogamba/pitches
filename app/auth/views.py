@@ -1,6 +1,6 @@
 from email.message import EmailMessage
 from flask import render_template, redirect, url_for, flash, request
-from flask_login import login_required, login_user, logout_user
+from flask_login import current_user, login_required, login_user, logout_user
 from . import auth
 from .. import db
 from app.models import User
@@ -12,6 +12,10 @@ user = User()
 def login():
     """
     view function that displays on login page"""
+    
+    if current_user.is_aunthenticated:
+        '''redirects logged in user to home page'''
+        return redirect(url_for('main.index'))
     form = LoginForm()
     if form.validate_on_submit():
         """creates user variable after successful login"""
@@ -25,6 +29,7 @@ def login():
 
         flash('Invalid Username or Password')
     title = 'Login'
+    form = 'login_form'
 
     return render_template('auth/login.html', title=title, form=form )
 
