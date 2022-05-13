@@ -1,24 +1,28 @@
-from sre_parse import CATEGORIES
-from flask import render_template,url_for, redirect, abort, request
+from flask import render_template, url_for, redirect, abort, request, flash
 from app.main import main
 from ..models import Pitch, User, Comments, Category, Votes
 from flask_login import current_user, login_required
 from . forms import Pitches,Comments, Category, Updates
-from .. import db,photos
+from app import db
 
 
 
-@main.route('/')
+@main.route('/', methods=['GET', 'POST'])
+@main.route('/index', methods=['GET', 'POST'])
+@login_required
 def index():
     """view function that displays homepage"""
-
-    category = Category.get_category()
-    main_pitch = Pitches.query.order_by('id').all()
-    print(main_pitch)
-
     title = 'Home'
+    form = Pitches
+    if form.validate_on_submit():
+        pitch = Pitch(body=form.body.data, author=current_user)
+        db.session.add(pitch)
+        db.session.commit()
+        flash('Your pitch has been uploaded')
+        return redirect(url_for('main.index'))
+    all_pitches = Pitch.query.order_by(Pitch.timestamp.desc()).all()
 
-    return render_template('index.html', title=title, categories=category, main_pitch=Pitches)
+    return render_template('index.html', title=title, form=form, all_pitches=all_pitches)
 
 @main.route('/category/add_pitch/<int:id>', methods=['GET', 'POST'])
 @login_required
@@ -61,7 +65,7 @@ def new_category():
 @main.route('/view-pitch/<int:id>', methods=['GET', 'POST'])
 @login_required
 def view_pitch(id):
-    all_category = Category.add_categories()
+    Category = Category.get_category()
     pitches = Pitch.query.get(id)
     if pitches is None:
         abort(404)
@@ -92,16 +96,22 @@ def profile(uname):
         abort(404)
     return render_template("profile/profile.html", user = user)
 
-@main.route('/user/<uname>/update/pic',methods= ['POST'])
-@login_required
-def update_pic(uname):
-    user = User.query.filter_by(username = uname).first()
-    if 'photo' in request.files:
-        filename = photos.save(request.files['photo'])
-        path = f'photos/{filename}'
-        user.profile_pic_path = path
-        db.session.commit()
-    return redirect(url_for('main.profile',uname=uname))
+# @bp.route('/profile/<username>')
+# def profile(username):
+#     user = User.query.filter_by(username=username).first()
+#     my_pitches = user.pitch.order_by(Pitch.timestamp.desc()).all()
+#     return render_template('profile.html', user=user, my_pitches=my_pitches)
+
+# @main.route('/user/<uname>/update/pic',methods= ['POST'])
+# @login_required
+# def update_pic(uname):
+#     user = User.query.filter_by(username = uname).first()
+#     if 'photo' in request.files:
+#         filename = photos.save(request.files['photo'])
+#         path = f'photos/{filename}'
+#         user.profile_pic_path = path
+#         db.session.commit()
+#     return redirect(url_for('main.profile',uname=uname))
 
 @main.route('/pitch/upvote/<int:id>&<int:vote_type>')
 @login_required

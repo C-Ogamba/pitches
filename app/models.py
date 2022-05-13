@@ -2,7 +2,7 @@ from datetime import datetime
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
 from .import login_manager
-from . import db
+from app import db
 
 
 # @login_manager.user_loader
@@ -41,10 +41,12 @@ class User(UserMixin, db.Model):
 
 class Pitch(db.Model):
     __tablename__='pitches'
+    # __table_args__ = {'extend_existing': True}
    
 
     pitch_id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String(140))
+    # timestamp = db.column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
 
@@ -90,7 +92,7 @@ class Category(db.Model):
         db.session.commit()
 
     @classmethod
-    def get_category(cls):
+    def get_category(self):
         category = Category.query.all()
         return category
 
