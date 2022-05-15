@@ -9,7 +9,7 @@ from flask_migrate import Migrate
 
 bootstrap = Bootstrap()
 db = SQLAlchemy()
-migrate = Migrate(db)
+migrate = Migrate()
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
 login_manager.login_view = 'auth.login'
@@ -24,6 +24,7 @@ def create_app(config_name=Config):
     bootstrap.init_app(app)
     db.init_app(app)
     login_manager.init_app(app)
+    migrate.init_app(app, db)
 
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
